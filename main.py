@@ -59,7 +59,7 @@ def path_tracer(dict_parent, curr_var, start):
 """
 A Function for performing the RRT Algorithm
 """
-def rrt(start, goal, n_r, n_c, vertices, polygon):
+def rrt(start, goal, n_r, n_c, vertices, polygon1, polygon2, polygon3):
     # Initializing point lists A and B to store the navigated points from Start Node and Goal Node respectively
     point_A = [start]
     point_B = [goal]
@@ -97,13 +97,14 @@ def rrt(start, goal, n_r, n_c, vertices, polygon):
 
         # To check if the expanded point lies in the obstacle or not
         # if not, then add the point to the point list
-        if polygon.contains(Point(new_pt.x, new_pt.y)) == False:
+        if polygon1.contains(Point(new_pt.x, new_pt.y)) == False:
+            if polygon2.contains(Point(new_pt.x,new_pt.y)) == False:
+                if polygon3.contains(Point(new_pt.x,new_pt.y)) == False:
+                    point_A.append(new_pt)
+                    plt.plot([temp_var.x, new_pt.x], [temp_var.y, new_pt.y], color = 'orange')
 
-            point_A.append(new_pt)
-            plt.plot([temp_var.x, new_pt.x], [temp_var.y, new_pt.y], color = 'orange')
-
-            # Storing the parent node of the new node
-            dict_parent[new_pt] = temp_var
+                    # Storing the parent node of the new node
+                    dict_parent[new_pt] = temp_var
 
         for var in point_B:
             if heuristic_function(var, new_pt) < 0.2:
@@ -135,21 +136,27 @@ def rrt(start, goal, n_r, n_c, vertices, polygon):
 
 # Initialize the input grid, start and end goal
 # n_r, n_c represents the no. of rows and cols in a grid
-n_r, n_c = 6, 6
+n_r, n_c = 600, 500
 start = Node(1, 1)
-goal = Node(5, 5)
-vertices = 500
+goal = Node(580, 450)
+vertices = 1000000000000
 
 plt.figure()
 plt.axis([0, n_r, 0, n_c])
 
 # Defining the polygon obstacle
-points = [[2,2], [2,2.5], [2.5,2.5], [2.5,4], [3,4],[3,2]]
-polygon = Polygon(points)
-plt.gca().add_patch(plt.Polygon(points, fill = True, color = 'lightgrey'))
+points1 = [[100,100], [200,100], [200,400], [100,400]]
+points2 = [[350,0], [400,0], [400,300], [350,300]]
+points3 = [[450,250], [500,250], [500,500], [450,500]]
+polygon1 = Polygon(points1)
+polygon2 = Polygon(points2)
+polygon3 = Polygon(points3)
+plt.gca().add_patch(plt.Polygon(points1, fill = True, color = 'grey'))
+plt.gca().add_patch(plt.Polygon(points2, fill = True, color = 'grey'))
+plt.gca().add_patch(plt.Polygon(points3, fill = True, color = 'grey'))
 
 # Finding the path and the navigated list
-final_list, path = rrt(start, goal, n_r, n_c, vertices, polygon)
+final_list, path = rrt(start, goal, n_r, n_c, vertices, polygon1, polygon2, polygon3)
 
 # Plotting the overall search nodes
 for var in final_list:
