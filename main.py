@@ -136,21 +136,22 @@ def rrt(start, goal, n_r, n_c, vertices, polygon1, polygon2, polygon3):
 
 # Initialize the input grid, start and end goal
 # n_r, n_c represents the no. of rows and cols in a grid
-n_r, n_c = 600, 500
-start = Node(1, 1)
-goal = Node(580, 450)
-vertices = 1000000000000
+n_r, n_c = 6, 5
+start = Node(0.5, 0.5)
+goal = Node(5.5, 4.5)
+vertices = 100000
+clearance = 0.18
 
 plt.figure()
 plt.axis([0, n_r, 0, n_c])
 
 # Defining the polygon obstacle
-points1 = [[100,100], [200,100], [200,400], [100,400]]
-points2 = [[350,0], [400,0], [400,300], [350,300]]
-points3 = [[450,250], [500,250], [500,500], [450,500]]
-polygon1 = Polygon(points1)
-polygon2 = Polygon(points2)
-polygon3 = Polygon(points3)
+points1 = [[1,1], [2,1], [2,4], [1,4]]
+points2 = [[3,0], [3.5,0], [3.5,3], [3,3]]
+points3 = [[4.5,2.5], [5,2.5], [5,5], [4.5,5]]
+polygon1 = Polygon(points1).buffer(clearance)
+polygon2 = Polygon(points2).buffer(clearance)
+polygon3 = Polygon(points3).buffer(clearance)
 plt.gca().add_patch(plt.Polygon(points1, fill = True, color = 'grey'))
 plt.gca().add_patch(plt.Polygon(points2, fill = True, color = 'grey'))
 plt.gca().add_patch(plt.Polygon(points3, fill = True, color = 'grey'))
@@ -162,13 +163,16 @@ final_list, path = rrt(start, goal, n_r, n_c, vertices, polygon1, polygon2, poly
 for var in final_list:
     plt.plot(var.x, var.y, color='yellow', marker='o', markersize = 2)
 
+plt.plot(start.x, start.y, color='red', marker='o')
+plt.plot(goal.x, goal.y, color='green', marker='o')
+
 # Plotting the final path and the nodes from start to goal
 if path is not None:
     for i in range(1,len(path)):
         plt.plot(path[i].x, path[i].y, color='yellow', marker='o', markersize = 1)
         plt.plot([path[i].x, path[i-1].x],[path[i].y, path[i-1].y], color = 'brown')
-
-plt.plot(start.x, start.y, color='red', marker='o')
-plt.plot(goal.x, goal.y, color='green', marker='o')
+        #plt.pause(0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001)
 
 plt.show()
+#plt.pause(30)
+plt.close('all')
