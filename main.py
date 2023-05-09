@@ -66,7 +66,7 @@ def rrt(start, goal, n_r, n_c, vertices, polygon1, polygon2, polygon3):
 
     # Initializing a dictionary to store the values of Parent Nodes
     dict_parent = {}
-    delta_d = 0.12
+    delta_d = 0.02
     path1 = []
 
     # Initializing a Counter to check the current list
