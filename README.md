@@ -4,9 +4,9 @@ Dependencies
 
 The code requires the following dependencies:
 
-Python 3.x
-NumPy
-Matplotlib
+Python 3.x, 
+NumPy, 
+Matplotlib, 
 Shapely
 
 Installation
