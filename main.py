@@ -171,7 +171,7 @@ if path is not None:
     for i in range(1,len(path)):
         plt.plot(path[i].x, path[i].y, color='yellow', marker='o', markersize = 1)
         plt.plot([path[i].x, path[i-1].x],[path[i].y, path[i-1].y], color = 'brown')
-        plt.pause(0.000000000000000000000000000000000000000000000000000000000000000000000000000001)
+        plt.pause(0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001)
 
 plt.show()
 plt.close('all')
