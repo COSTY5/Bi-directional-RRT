@@ -15,7 +15,7 @@ You can install the dependencies by running the following command:
   pip install numpy matplotlib shapely
 
 To run the code, execute the following command in the terminal:
-  python rrt.py
+  python main.py
 
 The code initializes the grid, start and goal positions, and obstacle polygons. 
 The algorithm then samples random points in the search space and connects them to the nearest point in the tree. 
